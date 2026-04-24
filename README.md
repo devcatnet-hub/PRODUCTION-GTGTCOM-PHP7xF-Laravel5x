@@ -1,1 +1,1 @@
-# Docker-PRODUCTION-GTGTCOM-PHP7xF-Laravel5x.git
+# Docker-PRODUCTION-GTGTCOM-PHP7xF-Laravel5x
