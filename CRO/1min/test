@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# php /APP/Production/DEAR/artisan schedule:run >> /dev/null 2>&1
+# php /APP/Production/BASE/artisan schedule:run >> /dev/null 2>&1

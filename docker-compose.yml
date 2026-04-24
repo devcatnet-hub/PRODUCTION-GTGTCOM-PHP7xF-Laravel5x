@@ -1,0 +1,119 @@
+version: "3.8"
+
+services:
+  php7xf-laravel5x:
+    image: deathwalker66/php7xf-laravel5x
+    container_name: PRODUCTION.PHP7xF-Laravel5x
+    hostname: prod-php7xf-laravel5x
+    volumes:
+      - type: bind
+        source: ./APP
+        target: /APP
+      - type: bind
+        source: ./LOG/nginx
+        target: /LOG/nginx
+      - type: bind
+        source: ./LOG/cron.log
+        target: /var/log/cron.log
+      - type: bind
+        source: ./LOG/php
+        target: /var/log/php
+      - type: bind
+        source: ./LOG/php-fpm
+        target: /var/log/php-fpm
+      - type: bind
+        source: ./PHP
+        target: /PHP
+      - type: bind
+        source: ./CRO
+        target: /etc/periodic
+      - type: bind
+        source: ./CFG/nginx/default.conf
+        target: /etc/nginx/conf.d/default.conf
+      - type: bind
+        source: ./CFG/nginx/nginx.conf
+        target: /etc/nginx/nginx.conf
+      - type: bind
+        source: ./CFG/php/php.ini
+        target: /etc/php7/php.ini
+      - type: bind
+        source: ./CFG/php/php-fpm.conf
+        target: /etc/php7/php-fpm.conf
+      - type: bind
+        source: ./CFG/php/www.conf
+        target: /etc/php7/php-fpm.d/www.conf
+      - type: bind
+        source: /mnt/Dock/Com
+        target: /COM
+      - type: bind
+        source: ./SCP
+        target: /SCP
+    ports:
+      - target: 22
+        published: 43722
+        protocol: tcp
+        mode: host
+      - target: 80
+        published: 43780
+        protocol: tcp
+        mode: host
+      - target: 443
+        published: 43743
+        protocol: tcp
+        mode: host
+      - target: 8000
+        published: 43700
+        protocol: tcp
+        mode: host
+      - target: 9001
+        published: 43701
+        protocol: tcp
+        mode: host
+      - target: 9002
+        published: 43702
+        protocol: tcp
+        mode: host
+      - target: 9003
+        published: 43703
+        protocol: tcp
+        mode: host
+      - target: 9004
+        published: 43704
+        protocol: tcp
+        mode: host
+      - target: 9005
+        published: 43705
+        protocol: tcp
+        mode: host
+      - target: 9006
+        published: 43706
+        protocol: tcp
+        mode: host
+      - target: 9007
+        published: 43707
+        protocol: tcp
+        mode: host
+      - target: 9008
+        published: 43708
+        protocol: tcp
+        mode: host
+      - target: 9009
+        published: 43709
+        protocol: tcp
+        mode: host
+      - target: 9010
+        published: 43710
+        protocol: tcp
+        mode: host
+    networks:
+      - catnet
+    env_file:
+      - .env
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+
+networks:
+  catnet:
+    name: catnet
+    external: true

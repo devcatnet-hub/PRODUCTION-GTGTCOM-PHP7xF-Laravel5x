@@ -1,0 +1,229 @@
+(1) |COMMAND|:
+
+            php artisan migrate
+
+    |ERROR|:
+
+            Illuminate\Database\QueryException  : SQLSTATE[42000]: Syntax error or access violation:
+            1071 Specified key was too long; max key length is 767 bytes (SQL: alter table `users` add unique
+             `users_username_unique`(`username`))
+
+            at /APP/Production/BASE/vendor/laravel/framework/src/Illuminate/Database/Connection.php: 664
+            660:         // If an exception occurs when attempting to run a query, we'll format the error
+            661:         // message to include the bindings with SQL, which will make this exception a
+            662:         // lot more helpful to the developer instead of just the database's errors.
+            663:         catch (Exception $e) {
+            664:             throw new QueryException(
+            665:                 $query, $this->prepareBindings($bindings), $e
+            666:             );
+            667:         }
+            668:
+            669:         return $result;
+
+            Exception trace:
+
+            1   PDOException::("SQLSTATE[42000]: Syntax error or access violation: 1071 Specified key was
+            too long; max key length is 767 bytes")
+              /APP/Production/BASE/vendor/laravel/framework/src/Illuminate/Database/Connection.php : 458
+
+            2   PDOStatement::execute()
+              /APP/Production/BASE/vendor/laravel/framework/src/Illuminate/Database/Connection.php : 458
+
+            Please use the argument -v to see more details.
+
+    |SOLVED|:
+
+            https://laravel-news.com/laravel-5-4-key-too-long-error
+
+    |SHORT|:
+
+            AppServiceProvider.php
+
+            public function boot()
+            {
+                Schema::defaultStringLength(191);
+            }
+
+(2) |COMMAND|:
+
+            php artisan migrate
+
+    |ERROR|:
+
+            Symfony\Component\Debug\Exception\FatalThrowableError  : Class 'App\Providers\Schema' not found
+
+            at /APP/Production/BASE/app/Providers/AppServiceProvider.php: 16
+            12:      * @return void
+            13:      */
+            14:      public function boot()
+            15:      {
+            16:          Schema::defaultStringLength(191); //NOTE:(1)
+            17:      }
+            18:
+            19:     /**
+            20:      * Register any application services.
+            21:      *
+
+            Exception trace:
+
+            1   App\Providers\AppServiceProvider::boot()
+            /APP/Production/BASE/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php : 29
+
+            2   call_user_func_array([])
+            /APP/Production/BASE/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php : 29
+
+            Please use the argument -v to see more details.
+
+    |SOLVED|:
+
+            https://laracasts.com/discuss/channels/laravel/php-artisan-migrate-errorclass-appprovidersschema-not-found?page=1
+
+    |SHORT|:
+
+            AppServiceProvider.php
+
+            use Illuminate\Support\Facades\Schema;
+
+(3) |COMMAND|:
+
+            php artisan db:seed
+
+    |ERROR|:
+
+            Seeding: UserTableSeeder
+
+            ReflectionException  : Class UserTableSeeder does not exist
+
+            at /APP/Production/BASE/vendor/laravel/framework/src/Illuminate/Container/Container.php: 767
+            763:         if ($concrete instanceof Closure) {
+            764:             return $concrete($this, $this->getLastParameterOverride());
+            765:         }
+            766:
+            767:         $reflector = new ReflectionClass($concrete);
+            768:
+            769:         // If the type is not instantiable, the developer is attempting to resolve
+            770:         // an abstract type such as an Interface of Abstract Class and there is
+            771:         // no binding registered for the abstractions so we need to bail out.
+            772:         if (! $reflector->isInstantiable()) {
+
+            Exception trace:
+
+            1   ReflectionClass::__construct("UserTableSeeder")
+            /APP/Production/BASE/vendor/laravel/framework/src/Illuminate/Container/Container.php : 767
+
+            2   Illuminate\Container\Container::build("UserTableSeeder")
+            /APP/Production/BASE/vendor/laravel/framework/src/Illuminate/Container/Container.php : 646
+
+            Please use the argument -v to see more details.
+
+    |SOLVED|:
+
+            https://stackoverflow.com/questions/36206742/class-usertableseeder-does-not-exist-laravel-5-0-php-artisan-dbseed
+
+    |SHORT|:
+
+            composer dumpautoload
+
+(4) |COMMAND|:
+
+            php artisan db:seed
+
+    |ERROR|:
+
+            Seeding: UserTableSeeder
+            PHP Fatal error:  Class 'Seeder' not found in /APP/Production/BASE/database/seeds/UserTableSeeder.php on line 5
+
+            Symfony\Component\Debug\Exception\FatalErrorException  : Class 'Seeder' not found
+
+            at /APP/Production/BASE/database/seeds/UserTableSeeder.php: 5
+            1: <?php
+            2:
+            3: use Illuminate\Support\Facades\Hash;
+            4:
+            5: class UserTableSeeder extends Seeder {
+            6:
+            7:     public function run()
+            8:     {
+            9:         User::create([
+            10:             'fname' => 'System',
+
+
+            Whoops\Exception\ErrorException  : Class 'Seeder' not found
+
+            at /APP/Production/BASE/database/seeds/UserTableSeeder.php: 5
+            1: <?php
+            2:
+            3: use Illuminate\Support\Facades\Hash;
+            4:
+            5: class UserTableSeeder extends Seeder {
+            6:
+            7:     public function run()
+            8:     {
+            9:         User::create([
+            10:             'fname' => 'System',
+
+    |SOLVED|:
+
+            https://laracasts.com/discuss/channels/general-discussion/seeder-class-not-found-in-laravel5-seeding?page=1
+
+    |SHORT|:
+
+            |ADD|: UserTableSeeder.php
+
+            use Illuminate\Database\Seeder;
+
+(5) |COMMAND|:
+
+            php artisan db:seed
+
+    |ERROR|:
+
+            Seeding: UserTableSeeder
+
+            Symfony\Component\Debug\Exception\FatalThrowableError  : Class 'User' not found
+
+            at /APP/Production/BASE/database/seeds/UserTableSeeder.php: 10
+            6: class UserTableSeeder extends Seeder {
+            7:
+            8:     public function run()
+            9:     {
+            10:         User::create([
+            11:             'fname' => 'System',
+            12:             'lname'  => 'Administrator',
+            13:             'username'   => 'admin',
+            14:             'email'      => 'storage.catnet@gmail.com',
+            15:             'password'   =>  Hash::make('secret'),
+
+            Exception trace:
+
+            1   UserTableSeeder::run()
+              /APP/Production/BASE/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php : 29
+
+            2   call_user_func_array([])
+              /APP/Production/BASE/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php : 29
+
+            Please use the argument -v to see more details.
+
+    |SOLVED|:
+
+            https://stackoverflow.com/questions/30774341/class-user-not-found-laravel-5-1-php-artisan-dbseed
+
+    |SHORT|:
+
+            |ADD|: UserTableSeeder.php
+
+            use App\User;
+
+(6) |COMMAND|:
+
+
+
+    |ERROR|:
+
+
+
+    |SOLVED|:
+
+
+
+    |SHORT|:

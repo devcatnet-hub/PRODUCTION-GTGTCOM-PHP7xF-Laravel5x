@@ -1,0 +1,2 @@
+192.168.192.81 - - [24/Apr/2026:07:16:39 +0000] "GET / HTTP/1.1" 200 76787 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:150.0) Gecko/20100101 Firefox/150.0"
+192.168.192.81 - - [24/Apr/2026:07:16:39 +0000] "GET /favicon.ico HTTP/1.1" 200 1150 "http://192.168.192.26:33702/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:150.0) Gecko/20100101 Firefox/150.0"

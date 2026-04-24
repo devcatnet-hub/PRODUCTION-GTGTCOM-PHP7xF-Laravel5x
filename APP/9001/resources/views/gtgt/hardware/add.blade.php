@@ -1,0 +1,287 @@
+@extends('masterindatetime')
+@section('title', $data['title'])
+@section('content')
+
+<div class="container-fluid">
+
+    </br></br>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-primary">
+
+                <![[[[[[[[[[[[[[[[[[[[[[[[[[FORM]]]]]]]]]]]]]]]]]]]]]]]]]]>
+                <div class="card-body">
+
+                    <form method="POST"  class="was-validated">
+                        @csrf
+
+                              <![[[[[HEADER]]]]]>
+
+                              <div class="card-header border-primary">
+
+                                  <h3 class="text-primary">
+                                    {!! GetHTML::Icons('laptop') !!}
+                                    {{$data['title']}}
+                                  </h3>
+
+                              </div>
+
+                              <!--
+                              <div class="card-header border-primary">
+
+                                  <div class="stepper-horiz">
+
+                                        <div class="stepper done">
+                                          <div class="stepper-icon"><i class="material-icons">check</i></div>
+                                          <span class="stepper-text">Name of step 1</span>
+                                        </div>
+
+                                        <div class="stepper active">
+                                          <div class="stepper-icon"><span>2</span></div>
+                                          <span class="stepper-text">Name of step 2</span>
+                                        </div>
+
+                                        <div class="stepper">
+                                          <div class="stepper-icon"><span>3</span></div>
+                                          <span class="stepper-text">Name of step 3</span>
+                                        </div>
+
+                                  </div>
+
+                              </div>
+                              -->
+
+                            </br>
+
+                              <![[[[[GROUP 01]]]]]>
+
+                              <div class="form-row">
+
+                                    <div class="col-md-1">
+                                      {!! GetHTML::Icons('icon') !!}
+                                    </div>
+                                    
+                                    <div class="col-md-3">
+                                      <label for="fechaevento">Fecha de asignación:</label>
+                                          <input id="fechaevento" name="fechaevento"
+                                                 class="form-control{{ $errors->has('fechaevento') ? ' is-invalid' : '' }}"                                                 
+                                                 required
+                                                 autofocus/>
+
+                                                 @if ($errors->has('fechaevento'))
+                                                     <span class="text-danger">
+                                                         <small><strong>{{ $errors->first('fechaevento') }}</strong></small>
+                                                     </span>
+                                                 @endif
+
+                                          <script>
+                                              $('#fechaevento').datepicker({ format: 'yyyy-mm-dd' });
+                                          </script>
+                                    </div>
+
+                                    <div class="col-md-7" id="name">
+                                    <label for="name">Notas:</label>
+                                        <textarea class="form-control{{ $errors->has('notas') ? ' is-invalid' : '' }}" name="notas"  id="notas" rows="2" autofocus></textarea>
+                                    </div>
+
+                              </div>
+
+                              </br>
+
+                              <![[[[[SEND]]]]]>
+
+                              <div class="card-footer border-primary">
+
+                                    <div class="form-row">
+                                          <div class="col-md-12">
+                                            @if ($data['back'] == 0)
+                                                <a href="/gtlistpersona/1/apellidos/asc" class="btn btn-default btn-sm">
+                                                    {!! GetHTML::Icons('cancel') !!} CANCEL
+                                                </a>
+                                            @endif
+                                            <button type="submit" class="btn btn-primary  btn-sm">
+                                                {!! GetHTML::Icons('save') !!} SAVE
+                                            </button>
+                                          </div>
+                                    </div>
+
+                              </div>
+
+                              <input id="idpersona" type="hidden" name="idpersona" value="{{$data['idpersona']}}">
+                              <input id="idhardware" type="hidden" name="idhardware" value="{{$data['idhardware']}}">
+                              <input id="store" type="hidden" name="store" value="1">
+                              <input id="evento" type="hidden" name="evento" value="Asignación de Hardware.">
+
+                    </form>
+
+                </div>
+                <![[[[[[[[[[[[[[[[[[[[[[[[[[FORM]]]]]]]]]]]]]]]]]]]]]]]]]]>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</br></br>
+
+@endsection
+
+
+<!-- [[[[[[TEXT]]]]]]
+
+<div class="col-md-2" id="name">
+  <label for="name" >NAME: </label>
+      <input type="text"
+             class="form-control{{ $errors->has('nombre') ? ' is-invalid' : '' }} "
+             name="name" id="name"
+             value="{{ old('name') }}"
+             placeholder="placeholder"
+             required
+             autofocus>
+
+             @if ($errors->has('name'))
+                 <span class="invalid-feedback">
+                     <strong>{{ $errors->first('name') }}</strong>
+                 </span>
+             @endif
+</div>
+
+-->
+
+<!-- [[[[[[EMAIL]]]]]]
+
+<div class="col-md-2" id="name">
+  <label for="name" >NAME: </label>
+      <input type="email"
+             class="form-control{{ $errors->has('nombre') ? ' is-invalid' : '' }} "
+             name="name" id="name"
+             value="{{ old('name') }}"
+             placeholder="placeholder"
+             required
+             autofocus>
+
+             @if ($errors->has('name'))
+                 <span class="invalid-feedback">
+                     <strong>{{ $errors->first('name') }}</strong>
+                 </span>
+             @endif
+</div>
+
+-->
+
+<!-- [[[[[[DATEPICKER]]]]]]
+
+<div class="col-md-0" id="othername">
+  <label for="name">NAME:</label>
+      <input id="name" name="name"
+             class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
+             value="{{ old('name') }}"
+             placeholder="placeholder"
+             required
+             autofocus/>
+
+             @if ($errors->has('name'))
+                 <span class="text-danger">
+                     <small><strong>{{ $errors->first('name') }}</strong></small>
+                 </span>
+             @endif
+
+      <script>
+          $('#name').datepicker({ format: 'yyyy mm dd' });
+      </script>
+</div>
+
+-->
+
+<!-- [[[[[[SELECT]]]]]]
+
+<div class="col-md-2" id="name">
+  <label for="name">NAME:</label>
+      <select class="form-control" name="name">
+          <option value="1">value</option>
+          <option value="2">value</option>
+      </select>
+</div>
+
+-->
+
+<!-- [[[[[[TEXTAREA]]]]]]
+
+<div class="col-md-10" id="name">
+  <label for="name">NAME:</label>
+      <textarea class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
+            name="name"  id="name"
+            rows="2" required autofocus>
+      </textarea>
+
+      @if ($errors->has('name'))
+          <span class="text-danger">
+              <small><strong>{{ $errors->first('name') }}</strong></small>
+          </span>
+      @endif
+</div>
+
+-->
+
+<!-- [[[[[[FILE]]]]]]
+
+01:
+
+<div class="custom-file"  id="name">
+    <input type="file" class="custom-file-input" id="validatedCustomFile" required>
+    <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+    <div class="invalid-feedback">Example invalid custom file feedback</div>
+</div>
+
+02:
+
+<div class="form-group" id="name">
+    <label for="name">NAME:</label>
+        <input type="file" class="form-control-file" id="name" name="name">
+
+        @if ($errors->has('name'))
+            <span class="text-danger">
+                <small><strong>{{ $errors->first('name') }}</strong></small>
+            </span>
+        @endif
+</div>
+
+-->
+
+<!-- [[[[[[SELECT MULTIPLE]]]]]]
+
+<div class="col-md-0" id="name">
+    <label for="name">NAME:</label>
+        <select multiple class="custom-select" required>
+            <option value="">Seleccionar...</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+        <div class="invalid-feedback">No ha seleccionado ningún...</div>
+
+        @if ($errors->has('name'))
+            <span class="text-danger">
+                <small><strong>{{ $errors->first('name') }}</strong></small>
+            </span>
+        @endif
+</div>
+
+-->
+
+<!-- [[[[[[CHECKBOX]]]]]]
+
+<div class="col-md-0" id="name">
+    <input class="form-check-input" type="checkbox" value="" id="name">
+    <label class="form-check-label" for="name">Agree to terms and conditions</label>
+</div>
+
+-->
+
+<!-- [[[[[[HIDDEN]]]]]]
+
+<input id="name" type="hidden" name="name" value="value">
+
+-->
